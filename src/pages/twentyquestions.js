@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 
+
 const TwentyQuestions = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [questionCount, setQuestionCount] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
-  const apiKey = "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"; // Replace with your OpenRouter API key
+  const apiKey = process.env.REACT_APP_OPENROUTER_API_KEY; // Replace with your OpenRouter API key
 
   // Ref to track the last message for auto-scrolling
   const messagesEndRef = useRef(null);
