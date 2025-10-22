@@ -1,70 +1,75 @@
-# Getting Started with Create React App
+PlayVerse - Interactive Gaming Platform
+Welcome to PlayVerse, an engaging web-based gaming suite featuring four exciting games: Tic-Tac-Toe, Memory Match, Wordle, and an AI-powered 20 Questions challenge. Built from scratch, this project showcases modern web development techniques and interactive design.
+Overview
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Tic-Tac-Toe: Classic 3x3 grid game with win animations.
+Memory Match: Card-flipping memory game with matching pairs.
+Wordle: Guess the word with color-coded feedback.
+20 Questions: AI-driven game where the bot guesses your object with yes/no questions.
 
-## Available Scripts
+Technologies Used
 
-In the project directory, you can run:
+Frontend: React.js (with hooks: useState, useEffect, useCallback), CSS3 (animations, flexbox, 3D transforms)
+AI Integration: OpenRouter API (GPT-4o-mini model)
+Version Control: Git/GitHub
+Hosting: Ngrok (for local tunneling to public URL)
 
-### `npm start`
+Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Responsive, cosmic-themed UI with animated effects.
+Real-time game logic and state management.
+AI-powered chat interface for 20 Questions.
+Cross-device compatibility with accessibility considerations.
+Hostable via Ngrok for public access to your local development server.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Installation
 
-### `npm test`
+Clone the repository:git clone https://github.com/NipunOP/playverse.git
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+Navigate to the project directory:cd playverse
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Install dependencies:npm install
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+Set up your OpenRouter API key:
+Create a .env file in the root directory.
+Add your API key: OPENROUTER_API_KEY=your_api_key_here.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Start the development server:npm start
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Open http://localhost:3000 to play locally!
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Hosting with Ngrok
+To share your local PlayVerse instance publicly:
 
-## Learn More
+Install Ngrok: Download and install from ngrok.com.
+Run Ngrok with the following command, pointing to your local server port (default is 3000):ngrok http 3000
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Copy the provided public URL (e.g., https://abcdef123.ngrok.io) and share it. This tunnels your local server to the internet.
+Note: Ngrok URLs are temporary unless you have a paid plan; restart Ngrok to get a new URL.
 
-### Code Splitting
+Usage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Navigate between games using the homepage grid.
+For 20 Questions, think of an object and answer the AI's yes/no questions.
+Enjoy the animations and reset games as needed.
+Test the public link via Ngrok to demo to others.
 
-### Analyzing the Bundle Size
+Contributing
+Feel free to fork this repository, submit issues, or create pull requests. Contributions to enhance game mechanics, UI, or Ngrok integration are welcome!
+License
+This project is open-source under the MIT License.
+Author
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Nipun KrishnanGitHub | LinkedIn
 
-### Making a Progressive Web App
+Screenshots
+(Add images of each game in action here, e.g., ![Tic-Tac-Toe](screenshots/tictactoe.png))
+Acknowledgments
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Thanks to the open-source community for React, OpenRouter API, and Ngrok.
+Inspired by classic games and modern web design trends.
