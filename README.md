@@ -24,7 +24,7 @@ Hostable via Ngrok for public access to your local development server.
 
 Installation
 
-Clone the repository:git clone https://github.com/NipunOP/playverse.git
+Clone the repository:git clone https://github.com/Raiden117/playverse.git
 
 
 Navigate to the project directory:cd playverse
