@@ -1,58 +1,136 @@
-/* --- Toony, Animated Home Page Styles --- */
+/* ---
+  ARCADE VIBE TRANSFORMATION (v2 - Bedazzled Edition)
+  Theme: Neon Space Arcade
+  Fonts: 'Press Start 2P' (Titles), 'VT323' (Text)
+  Colors: Black/Dark Blue (BG), Neon Pink, Neon Blue, Neon Green
+--- */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+:root {
+  --arcade-font: 'Press Start 2P', 'Impact', 'Arial Black', sans-serif;
+  --digital-font: 'VT323', 'Courier New', monospace;
+  
+  --bg-color: #00001a; /* Deep space blue/black */
+  --text-color: #ffffff;
+  
+  --neon-blue: #00ffff;
+  --neon-pink: #ff00ff;
+  --neon-green: #00ff00;
+  --neon-yellow: #ffff00;
+  
+  --scanline-bg: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.3) 0px,
+    rgba(0, 0, 0, 0.3) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+
+  /* --- Liquid Smooth Easing --- */
+  --liquid-ease: cubic-bezier(0.25, 0.8, 0.25, 1);
+  --snap-ease: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* --- Global Arcade Wrapper --- */
+.home-container,
+.tictac-wrapper {
+  background-color: var(--bg-color);
+  background-image:
+    /* Starfield Layer 1 (Slow) */
+    radial-gradient(1px 1px at 10% 20%, #fff, transparent),
+    radial-gradient(1px 1px at 50% 30%, #fff, transparent),
+    radial-gradient(1px 1px at 80% 40%, #fff, transparent),
+    /* Starfield Layer 2 (Medium) */
+    radial-gradient(1px 1px at 30% 60%, #ccc, transparent),
+    radial-gradient(2px 2px at 60% 70%, #ccc, transparent),
+    radial-gradient(1px 1px at 90% 80%, #ccc, transparent),
+    /* Starfield Layer 3 (Fast) */
+    radial-gradient(1px 1px at 20% 80%, #fff, transparent),
+    radial-gradient(1px 1px at 70% 10%, #fff, transparent);
+  
+  background-size: 100% 100%, 200px 200px, 300px 300px, 150px 150px;
+  animation: 
+    star-scroll 120s linear infinite,
+    star-scroll-fast 60s linear infinite;
+}
+
+/* Scanline Overlay */
+.home-container::before,
+.tictac-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: var(--scanline-bg);
+  z-index: 2;
+  pointer-events: none;
+  animation: scanline-jitter 8s linear infinite;
+}
+
+
+/* --- Toony, Animated Home Page Styles -> ARCADE HOME --- */
 .home-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  min-height: 200vh; /* Increased to ensure full page scroll */
+  min-height: 200vh; /* Keep scroll depth */
   padding: 2rem 0;
-  background: #ffe6cc;
   overflow: hidden;
-  position: relative; /* For positioning floating items */
+  position: relative;
 }
 
 .home-title {
-  font-family: 'Luckiest Guy', 'Comic Sans MS', 'Impact', 'Arial Black', sans-serif;
-  font-size: 8rem;
-  color: #ff6f3c;
-  text-shadow: 4px 4px #ffb86b, -4px -4px #a3bffa;
+  font-family: var(--arcade-font);
+  font-size: 5rem; /* Pixel fonts are wider */
+  color: #fff;
+  text-shadow:
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 20px var(--neon-pink),
+    0 0 30px var(--neon-pink),
+    0 0 40px var(--neon-pink);
   margin: 0;
   position: absolute;
-  top: 20%;
+  top: 30vh; /* Centered more */
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1;
+  z-index: 10;
   text-align: center;
   width: 100%;
+  animation: pulse-pink 1.5s infinite alternate;
 }
 
 .scroll-down {
-  position: relative;
-  top: 700px;
-  bottom: 1rem;
+  position: absolute;
+  top: 80vh; /* Positioned below title */
+  font-family: var(--digital-font);
   font-size: 2rem;
   background: none;
   border: none;
-  color: #ff6f3c;
+  color: var(--neon-blue);
   cursor: pointer;
-  text-shadow: 1px 1px #ffb86b;
-  transition: transform 0.3s ease;
-  z-index: 2; /* Above floating items */
+  text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue);
+  transition: transform 0.4s var(--liquid-ease), text-shadow 0.4s var(--liquid-ease);
+  z-index: 10;
+  animation: bounce-arrow 1.2s infinite alternate var(--liquid-ease);
 }
 
 .scroll-down:hover {
-  transform: scale(1.2) translateY(5px);
+  transform: scale(1.1);
+  animation: pulse-blue 1s infinite alternate;
 }
 
 .games-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 4rem;
-  padding: 7rem;
+  gap: 3rem;
+  padding: 4rem;
   margin-top: 120vh; /* Start below the logo */
   width: 80%;
   max-width: 1000px;
-  z-index: 2; /* Above floating items */
+  z-index: 5;
   height: 600px;
 }
 
@@ -61,46 +139,71 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 4.5rem;
-  border: 4px dashed #ffb86b;
-  border-radius: 100px;
-  background: #fffbe7;
-  font-family: 'Luckiest Guy', 'Comic Sans MS', 'Impact', 'Arial Black', sans-serif;
-  font-size: 1.5rem;
-  color: #333;
+  padding: 2rem;
+  border: 3px solid var(--neon-blue);
+  border-radius: 0;
+  background: rgba(0, 255, 255, 0.05); /* Faint glow */
+  font-family: var(--arcade-font);
+  font-size: 1.2rem;
+  color: var(--neon-blue);
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-  box-shadow: 3px 3px 0 #a3bffa44;
+  transition: transform 0.4s var(--liquid-ease), box-shadow 0.4s var(--liquid-ease), background 0.4s var(--liquid-ease);
+  box-shadow: 0 0 15px var(--neon-blue) inset, 0 0 10px var(--neon-blue);
+  position: relative;
+  overflow: hidden;
 }
 
 .game-box:hover {
-  transform: scale(1.1) rotate(-5deg);
-  box-shadow: 0 8px 20px #a3bffa44;
-  background: #e0e7ff;
+  transform: scale(1.05) translateY(-10px) skew(-3deg);
+  box-shadow: 0 0 25px var(--neon-blue) inset, 0 0 30px var(--neon-blue);
+  background: rgba(0, 255, 255, 0.15);
+  color: var(--neon-yellow);
+}
+
+/* Sweeping border glow on hover */
+.game-box:hover::before {
+  content: '';
+  position: absolute;
+  top: -5px; left: -5px; right: -5px; bottom: -5px;
+  background: linear-gradient(90deg, transparent, var(--neon-yellow), transparent);
+  animation: border-glow-anim 2s linear infinite;
+  z-index: -1;
+}
+
+.game-box:hover .game-name {
+  animation: pulse-yellow 1s infinite alternate;
 }
 
 .game-icon {
   margin-bottom: 0.5rem;
+  transition: transform 0.4s var(--liquid-ease);
+}
+
+.game-box:hover .game-icon {
+  transform: scale(1.1);
 }
 
 .game-name {
   text-align: center;
+  transition: color 0.4s var(--liquid-ease);
 }
 
 /* --- Floating Items Styles --- */
 .floating-item {
   position: absolute;
-  top: -10%; /* Start above the screen */
-  z-index: 0; /* Behind logo and grid */
-  animation: floatAnimation linear infinite;
-  border: 3px dashed #a3bffa;
-  border-radius: 10px;
-  box-shadow: 2px 2px 0 #ffb86b44;
-  pointer-events: none; /* Prevent interaction */
+  top: -10%; 
+  z-index: 1; /* Behind grid */
+  animation: floatAnimation 20s linear infinite; /* Slower, more majestic */
+  border: 2px solid var(--neon-green);
+  border-radius: 0;
+  box-shadow: 0 0 8px var(--neon-green);
+  pointer-events: none;
+  animation-duration: calc(var(--i, 1) * 10s + 10s); /* Varied speeds */
+  opacity: 0.7;
 }
 
 .tictactoe {
-  background: #f0f8ff;
+  background: rgba(0, 255, 0, 0.1);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2px;
@@ -111,33 +214,39 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Luckiest Guy', 'Comic Sans MS', 'Impact', 'Arial Black', sans-serif;
+  font-family: var(--arcade-font);
   font-size: 0.6em;
+  color: var(--neon-green);
+  text-shadow: 0 0 5px var(--neon-green);
 }
 .tictactoe::before { content: "X"; }
 .tictactoe::after { content: "O"; }
 
 .memory {
-  background: linear-gradient(45deg, #e0f7fa, #fffbe7);
+  background: rgba(0, 255, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .memory::before {
-  content: "🂠";
+  content: "✦"; /* Star symbol */
   font-size: 1.2em;
+  color: var(--neon-green);
+  animation: pulse-green 2s infinite alternate;
   transform: rotate(10deg);
 }
 
 .twentyquestions {
-  background: linear-gradient(45deg, #a3bffa, #e0f7fa);
+  background: rgba(0, 255, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .twentyquestions::before {
-  content: "❓";
+  content: "◇"; /* Diamond symbol */
   font-size: 1.2em;
+  color: var(--neon-green);
+  animation: pulse-green 2.5s infinite alternate;
   transform: rotate(-10deg);
 }
 
@@ -146,8 +255,8 @@
 }
 
 @keyframes floatAnimation {
-  0% { top: -10%; }
-  100% { top: 110%; }
+  0% { top: -10%; transform: rotate(0deg) translateX(0); }
+  100% { top: 110%; transform: rotate(360deg) translateX(20px); }
 }
 
 @keyframes fadeOut {
@@ -155,7 +264,7 @@
   100% { opacity: 0; }
 }
 
-/* --- Toony Tic-Tac-Toe Styles --- */
+/* --- Toony Tic-Tac-Toe Styles -> ARCADE Tic-Tac-Toe --- */
 .tictac-wrapper {
   display: flex;
   flex-direction: column;
@@ -166,16 +275,16 @@
   position: relative;
   overflow: hidden;
   justify-content: center;
-  background: #ffe6cc;
 }
 
 .tictac-title {
-  font-family: 'Luckiest Guy', 'Comic Sans MS', 'Impact', 'Arial Black', sans-serif;
+  font-family: var(--arcade-font);
   font-size: 2.5rem;
-  color: #ff6f3c;
-  text-shadow: 3px 3px #ffb86b, -3px -3px #a3bffa;
+  color: var(--neon-pink);
   margin-bottom: 1.5rem;
   text-align: center;
+  z-index: 10;
+  animation: pulse-pink 1.5s infinite alternate;
 }
 
 .tictac-container {
@@ -187,19 +296,21 @@
   width: 100%;
   max-width: 700px;
   margin: 0 auto;
-  padding: 4.5rem;
-  background: #fffbe7;
-  border-radius: 18px;
-  border: 6px dashed #ffb86b;
-  box-shadow: 0 8px 0 #ffb86b, 0 16px 32px #a3bffa44;
+  padding: 2.5rem;
+  background: rgba(0, 0, 0, 0.5); /* Translucent panel */
+  border-radius: 0;
+  border: 3px solid var(--neon-blue);
+  box-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue) inset;
   text-align: center;
   position: relative;
+  z-index: 5;
+  animation: pulse-blue-shadow 3s infinite alternate;
 }
 
 .tictac-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: 0.5rem; /* Tighter grid */
   width: 100%;
   max-width: 300px;
   position: relative;
@@ -210,44 +321,67 @@
 .tictac-cell {
   width: 100px;
   height: 100px;
-  background: #f0f8ff;
-  border: 4px dashed #a3bffa;
-  border-radius: 12px;
+  background: rgba(0, 255, 255, 0.1);
+  border: 2px solid var(--neon-blue);
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Luckiest Guy', 'Comic Sans MS', 'Impact', 'Arial Black', sans-serif;
+  font-family: var(--arcade-font);
   font-size: 2.5rem;
   cursor: pointer;
-  box-shadow: 2px 2px 0 #a3bffa44;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
+  box-shadow: 0 0 5px var(--neon-blue) inset;
+  transition: transform 0.2s var(--snap-ease), box-shadow 0.2s var(--liquid-ease), background 0.2s var(--liquid-ease), color 0.2s var(--liquid-ease);
+  color: transparent; /* Hide text until taken */
 }
 
 .tictac-cell.hoverable:hover {
-  transform: scale(1.1) rotate(-2deg);
-  box-shadow: 0 6px 16px #a3bffa44;
-  background: #e0e7ff;
+  transform: scale(0.95); /* Press-down effect */
+  box-shadow: 0 0 15px var(--neon-blue) inset, 0 0 10px var(--neon-blue);
+  background: rgba(0, 255, 255, 0.3);
 }
 
 .tictac-cell.taken {
   cursor: not-allowed;
-  animation: taken-pop 0.5s ease;
+  animation: none; /* Override taken-pop for glitch */
+  background: transparent;
 }
-.tictac-cell.taken.X {
-  background: #ff3333; /* Red for X */
-  color: #fff;
-  box-shadow: 0 4px 12px #ff666644;
-}
+.tictac-cell.taken.X,
 .tictac-cell.taken.O {
-  background: #3333ff; /* Blue for O */
-  color: #fff;
-  box-shadow: 0 4px 12px #6666ff44;
+  animation: glitch-in 0.5s var(--snap-ease);
 }
 
-@keyframes taken-pop {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+.tictac-cell.taken.X {
+  color: var(--neon-pink);
+  text-shadow: 0 0 10px var(--neon-pink), 0 0 5px #fff;
+  border-color: var(--neon-pink);
+  animation-name: glitch-in, pulse-pink;
+  animation-duration: 0.5s, 1.5s;
+  animation-timing-function: var(--snap-ease), linear;
+  animation-iteration-count: 1, infinite;
+  animation-direction: normal, alternate;
+  animation-delay: 0s, 0.5s;
+}
+.tictac-cell.taken.O {
+  color: var(--neon-green);
+  text-shadow: 0 0 10px var(--neon-green), 0 0 5px #fff;
+  border-color: var(--neon-green);
+  animation-name: glitch-in, pulse-green;
+  animation-duration: 0.5s, 1.5s;
+  animation-timing-function: var(--snap-ease), linear;
+  animation-iteration-count: 1, infinite;
+  animation-direction: normal, alternate;
+  animation-delay: 0s, 0.5s;
+}
+
+/* Replaced taken-pop with glitch-in */
+@keyframes glitch-in {
+  0% { transform: scale(1.5) skew(15deg); opacity: 0; }
+  30% { transform: scale(1) skew(0); opacity: 1; }
+  40% { transform: scale(1) translateX(-5px); }
+  50% { transform: scale(1) translateX(5px); }
+  60% { transform: scale(1) translateX(0); }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 .tictac-scoreboard {
@@ -255,35 +389,77 @@
   justify-content: space-between;
   width: 100%;
   max-width: 300px;
-  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;
+  font-family: var(--digital-font);
   font-size: 1.2rem;
-  color: #222;
+  color: var(--text-color);
   align-items: center;
-  background: #f8fafd;
+  background: transparent;
   padding: 0.5rem 1rem;
-  border-radius: 8px;
-  border: 2px dashed #a3bffa;
-  box-shadow: 2px 2px 0 #a3bffa44;
+  border-radius: 0;
+  border: 1px solid var(--neon-blue);
+  box-shadow: none;
   text-align: center;
 }
 
-.tictac-reset {
+/* --- Global Arcade Button Style --- */
+.arcade-button {
   padding: 0.8rem 1.5rem;
-  background: linear-gradient(90deg, #ffb86b 0%, #ff6f3c 100%);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.2rem;
-  font-family: 'Luckiest Guy', 'Comic Sans MS', 'Impact', 'Arial Black', sans-serif;
+  background: var(--neon-green);
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 0;
+  font-size: 1rem;
+  font-family: var(--arcade-font);
   cursor: pointer;
-  box-shadow: 2px 2px 0 #ffb86b44;
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 4px 4px 0px #000, 0 0 10px var(--neon-green);
+  transition: background 0.2s, transform 0.1s, box-shadow 0.1s;
+  text-shadow: none;
 }
 
-.tictac-reset:hover {
-  background: linear-gradient(90deg, #ff6f3c 0%, #ffb86b 100%);
-  transform: scale(1.07) rotate(-2deg);
-  box-shadow: 0 6px 16px #ffb86b44;
+.arcade-button:hover:not(:disabled) {
+  background: var(--neon-yellow);
+  transform: scale(1.02);
+  box-shadow: 4px 4px 0px #000;
+  animation: pulse-yellow-shadow 1s infinite alternate;
+}
+
+.arcade-button:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #000, 0 0 5px var(--neon-green);
+  animation: none;
+}
+
+.arcade-button:disabled {
+  background: #555;
+  color: #999;
+  box-shadow: 4px 4px 0px #000;
+  cursor: not-allowed;
+}
+
+.tictac-reset {
+  /* Apply global button style */
+  padding: 0.8rem 1.5rem;
+  background: var(--neon-green);
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 0;
+  font-size: 1rem;
+  font-family: var(--arcade-font);
+  cursor: pointer;
+  box-shadow: 4px 4px 0px #000, 0 0 10px var(--neon-green);
+  transition: background 0.2s, transform 0.1s, box-shadow 0.1s;
+  text-shadow: none;
+}
+.tictac-reset:hover:not(:disabled) {
+  background: var(--neon-yellow);
+  transform: scale(1.02) rotate(0deg); /* Remove rotate */
+  box-shadow: 4px 4px 0px #000;
+  animation: pulse-yellow-shadow 1s infinite alternate;
+}
+.tictac-reset:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #000, 0 0 5px var(--neon-green);
+  animation: none;
 }
 
 .tictac-winner-screen {
@@ -292,33 +468,34 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  background: #fffbe7;
-  border: 4px dashed #ffb86b;
-  border-radius: 12px;
-  box-shadow: 0 8px 0 #ffb86b, 0 16px 32px #a3bffa44;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid var(--neon-yellow);
+  border-radius: 0;
+  box-shadow: 0 0 20px var(--neon-yellow);
+  animation: pulse-yellow-shadow 2s infinite alternate;
 }
 
 .tictac-winner {
-  font-family: 'Luckiest Guy', 'Comic Sans MS', 'Impact', 'Arial Black', sans-serif;
+  font-family: var(--arcade-font);
   font-size: 2rem;
-  color: #1e90ff;
-  text-shadow: 2px 2px #a3bffa44;
+  color: var(--neon-yellow);
   margin-top: 1rem;
-  animation: winner-pop 1s cubic-bezier(.68,-0.55,.27,1.55) infinite alternate;
-}
-
-@keyframes winner-pop {
-  0% { transform: scale(1); }
-  100% { transform: scale(1.1); }
+  animation: pulse-yellow 1s infinite alternate;
 }
 
 .winning-line {
   position: absolute;
   height: 6px;
-  background: #ff6f3c;
+  background: var(--neon-pink);
   z-index: 10;
-  transform-origin: center;
-  box-shadow: 0 2px 4px #ffb86b44;
+  transform-origin: left; /* Changed for draw animation */
+  box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+  animation: draw-line 0.5s var(--snap-ease) forwards;
+}
+
+@keyframes draw-line {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 
 .explosion-container {
@@ -339,7 +516,7 @@
   position: absolute;
   width: 25px;
   height: 25px;
-  background: radial-gradient(circle, #ff6f3c, #ffb86b, #a3bffa);
+  background: radial-gradient(circle, var(--neon-yellow), var(--neon-pink), var(--neon-blue));
   border-radius: 50%;
   animation: explode 1.5s ease-out forwards;
 }
@@ -375,7 +552,7 @@
 
 .disabled {
   pointer-events: none;
-  opacity: 0.7;
+  opacity: 0.5;
 }
 
 /* --- Memory Game Styles --- */
@@ -391,13 +568,17 @@
 .memory-cell {
   perspective: 1000px;
 }
+.memory-cell:hover .memory-card:not(.flipped) {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
+}
 
 .memory-card {
   position: relative;
   width: 100%;
   height: 100px;
   transform-style: preserve-3d;
-  transition: transform 0.6s ease;
+  transition: transform 0.6s var(--snap-ease), box-shadow 0.4s var(--liquid-ease);
 }
 
 .memory-cell.flipped .memory-card {
@@ -413,25 +594,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 4px dashed #a3bffa;
-  border-radius: 12px;
-  background: #f0f8ff;
-  font-family: 'Luckiest Guy', 'Comic Sans MS', 'Impact', 'Arial Black', sans-serif;
+  border: 2px solid var(--neon-blue);
+  border-radius: 0;
+  box-shadow: 0 0 10px var(--neon-blue), 0 0 5px var(--neon-blue) inset;
+  font-family: var(--arcade-font);
   font-size: 2rem;
-  box-shadow: 2px 2px 0 #ffb86b44;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .memory-back {
-  background: linear-gradient(45deg, #e0f7fa, #fffbe7);
+  background: rgba(0, 255, 255, 0.1);
   transform: rotateY(0deg);
+  color: var(--neon-blue);
+  animation: pulse-blue 2s infinite alternate;
+}
+.memory-back::before {
+  content: '?';
+  text-shadow: 0 0 10px var(--neon-blue);
 }
 
 .memory-front {
+  background: rgba(0, 255, 255, 0.3);
   transform: rotateY(180deg);
+  color: var(--neon-yellow);
+  text-shadow: 0 0 10px var(--neon-yellow);
+  animation: pulse-yellow 1.5s infinite alternate;
 }
 
-/* --- Professional Comic Scoreboard Styles --- */
+/* --- Professional Comic Scoreboard Styles -> ARCADE SCOREBOARD --- */
 .scoreboard-layout {
   display: flex;
   flex-direction: column;
@@ -441,16 +631,17 @@
   gap: 1rem;
 }
 
-.timer-box {
-  background: linear-gradient(90deg, #ff6f3c, #ffb86b);
-  color: #fff;
+.timer-box, .turn-indicator {
+  background: transparent;
+  color: var(--neon-green);
   padding: 1rem 2rem;
-  border-radius: 15px;
-  font-family: 'Luckiest Guy', 'Comic Sans MS', 'Impact', 'Arial Black', sans-serif;
-  font-size: 1.5rem;
+  border-radius: 0;
+  border: 2px solid var(--neon-green);
+  font-family: var(--arcade-font);
+  font-size: 1.2rem;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(163, 191, 250, 0.3);
-  text-shadow: 1px 1px #a3bffa;
+  text-shadow: 0 0 5px var(--neon-green);
+  animation: pulse-green-shadow 2s infinite alternate;
 }
 
 .score-panel {
@@ -462,79 +653,91 @@
 
 .player-score {
   flex: 1;
-  background: linear-gradient(45deg, #e0f7fa, #a3bffa);
-  color: #222;
+  background: transparent;
+  color: var(--text-color);
   padding: 1rem;
-  border-radius: 15px;
-  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;
+  border-radius: 0;
+  font-family: var(--digital-font);
   font-size: 1.2rem;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(163, 191, 250, 0.3);
-  transition: transform 0.3s ease;
+  box-shadow: none;
+  transition: transform 0.4s var(--liquid-ease), text-shadow 0.4s var(--liquid-ease);
 }
 
 .player-score.player1 {
   margin-right: 1rem;
-  border: 3px dashed #1e90ff;
+  border: 2px solid var(--neon-blue);
+  color: var(--neon-blue);
+  text-shadow: 0 0 5px var(--neon-blue);
 }
 
 .player-score.player2 {
   margin-left: 1rem;
-  border: 3px dashed #ff6f3c;
+  border: 2px solid var(--neon-pink);
+  color: var(--neon-pink);
+  text-shadow: 0 0 5px var(--neon-pink);
 }
 
 .player-score:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
+  text-shadow: 0 0 10px var(--text-color);
 }
 
 .turn-indicator {
-  background: linear-gradient(90deg, #ffb86b, #ff6f3c);
-  color: #fff;
-  padding: 1rem 2rem;
-  border-radius: 15px;
-  font-family: 'Luckiest Guy', 'Comic Sans MS', 'Impact', 'Arial Black', sans-serif;
-  font-size: 1.5rem;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(163, 191, 250, 0.3);
-  text-shadow: 1px 1px #a3bffa;
   position: relative;
   bottom: 0;
 }
 
-/* --- Twenty Questions Chat Styles --- */
+/* --- Twenty Questions Chat Styles -> ARCADE TERMINAL --- */
 .chat-box {
   display: flex;
   flex-direction: column;
   max-height: 400px;
   overflow-y: auto;
-  background: #fffbe7;
-  border: 4px dashed #ffb86b;
-  border-radius: 15px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid var(--neon-green);
+  border-radius: 0;
   padding: 1rem;
   margin-bottom: 1rem;
-  box-shadow: 0 6px 18px rgba(163, 191, 250, 0.4);
+  box-shadow: 0 0 15px var(--neon-green);
+  animation: pulse-green-shadow 2.5s infinite alternate;
 }
+
+/* Scrollbar for terminal */
+.chat-box::-webkit-scrollbar {
+  width: 8px;
+}
+.chat-box::-webkit-scrollbar-track {
+  background: #000;
+}
+.chat-box::-webkit-scrollbar-thumb {
+  background: var(--neon-green);
+  box-shadow: 0 0 5px var(--neon-green);
+}
+
 
 .chat-message {
   margin: 0.5rem 0;
-  padding: 0.8rem;
-  border-radius: 10px;
-  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;
-  font-size: 1.1rem;
+  padding: 0.5rem;
+  border-radius: 0;
+  font-family: var(--digital-font);
+  font-size: 1.2rem;
+  background: transparent;
+  animation: fade-in-text 0.5s var(--liquid-ease);
 }
 
 .chat-message.user {
-  background: linear-gradient(45deg, #1e90ff, #a3bffa);
-  color: #fff;
+  color: var(--neon-blue);
   align-self: flex-end;
   text-align: right;
+  text-shadow: 0 0 5px var(--neon-blue);
 }
 
 .chat-message.assistant {
-  background: linear-gradient(45deg, #ff6f3c, #ffb86b);
-  color: #fff;
+  color: var(--neon-green);
   align-self: flex-start;
   text-align: left;
+  text-shadow: 0 0 5px var(--neon-green);
 }
 
 form {
@@ -546,43 +749,58 @@ form {
 input {
   flex: 1;
   padding: 0.8rem;
-  border: 3px dashed #a3bffa;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;
-  background: #f0f8ff;
-  box-shadow: 2px 2px 0 #ffb86b44;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid var(--neon-green);
+  border-radius: 0;
+  font-size: 1.1rem;
+  font-family: var(--digital-font);
+  background: #000;
+  color: var(--neon-green);
+  box-shadow: none;
+  transition: border-color 0.4s var(--liquid-ease), box-shadow 0.4s var(--liquid-ease);
 }
 
 input:focus {
   outline: none;
-  border-color: #1e90ff;
-  box-shadow: 0 4px 12px rgba(30, 144, 255, 0.3);
+  border-color: var(--neon-yellow);
+  animation: pulse-yellow-shadow 1s infinite alternate;
 }
 
-button {
+/* Re-using .arcade-button class from global styles */
+form button {
   padding: 0.8rem 1.5rem;
-  background: linear-gradient(90deg, #ffb86b, #ff6f3c);
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  font-size: 1.2rem;
-  font-family: 'Luckiest Guy', 'Comic Sans MS', 'Impact', 'Arial Black', sans-serif;
+  background: var(--neon-green);
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 0;
+  font-size: 1rem;
+  font-family: var(--arcade-font);
   cursor: pointer;
-  box-shadow: 2px 2px 0 #ffb86b44;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 4px 4px 0px #000, 0 0 10px var(--neon-green);
+  transition: background 0.2s, transform 0.1s, box-shadow 0.1s;
+  text-shadow: none;
 }
 
-button:disabled {
-  background: #ccc;
+form button:disabled {
+  background: #555;
+  color: #999;
+  box-shadow: 4px 4px 0px #000;
   cursor: not-allowed;
 }
 
-button:hover:not(:disabled) {
-  transform: scale(1.05) rotate(-2deg);
-  box-shadow: 0 6px 16px rgba(255, 184, 107, 0.5);
+form button:hover:not(:disabled) {
+  background: var(--neon-yellow);
+  transform: scale(1.02);
+  box-shadow: 4px 4px 0px #000;
+  animation: pulse-yellow-shadow 1s infinite alternate;
 }
+
+form button:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #000, 0 0 5px var(--neon-green);
+  animation: none;
+}
+
+
 /* --- Wordle Styles --- */
 .wordle-grid {
   display: grid;
@@ -600,34 +818,60 @@ button:hover:not(:disabled) {
 .wordle-cell {
   width: 50px;
   height: 50px;
-  background: #f0f8ff;
-  border: 4px dashed #a3bffa;
-  border-radius: 8px;
+  background: transparent;
+  border: 2px solid #555; /* Inactive grid */
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Luckiest Guy', 'Comic Sans MS', 'Impact', 'Arial Black', sans-serif;
+  font-family: var(--arcade-font);
   font-size: 1.5rem;
-  box-shadow: 2px 2px 0 #ffb86b44;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  color: #fff;
+  box-shadow: none;
+  transition: background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+  transform-style: preserve-3d; /* For 3D flip */
 }
+
+/* 3D Flip reveal animations */
+.wordle-cell.green {
+  animation: flip-reveal 0.8s var(--snap-ease) forwards, pulse-green-shadow 1s 0.8s infinite alternate;
+  animation-fill-mode: forwards;
+}
+.wordle-cell.yellow {
+  animation: flip-reveal 0.8s var(--snap-ease) forwards, pulse-yellow-shadow 1s 0.8s infinite alternate;
+  animation-fill-mode: forwards;
+}
+.wordle-cell.gray {
+  animation: flip-reveal 0.8s var(--snap-ease) forwards;
+  animation-fill-mode: forwards;
+}
+
+@keyframes flip-reveal {
+  0% { transform: rotateX(0deg); background: transparent; border-color: #555; }
+  49% { background: transparent; border-color: #555; }
+  50% { transform: rotateX(90deg); }
+  51% { 
+    /* Color changes mid-flip */
+    background: var(--reveal-color, #333); 
+    border-color: var(--reveal-color, #333);
+    color: #000;
+  }
+  100% { 
+    transform: rotateX(0deg); 
+    background: var(--reveal-color, #333); 
+    border-color: var(--reveal-color, #333);
+    color: #000;
+  }
+}
+/* We set the --reveal-color variable in JS, but can default it here */
+.wordle-cell.green { --reveal-color: var(--neon-green); }
+.wordle-cell.yellow { --reveal-color: var(--neon-yellow); }
+.wordle-cell.gray { --reveal-color: #333; color: #888; } /* Gray text is lighter */
+
 
 .wordle-cell.current {
-  border-color: #1e90ff;
-}
-
-.wordle-cell.green {
-  background-color: #90ee90; /* Light green for correct position */
-  animation: pop 0.5s ease;
-}
-
-.wordle-cell.yellow {
-  background-color: #ffd700; /* Light yellow for correct letter, wrong position */
-  animation: pop 0.5s ease;
-}
-
-.wordle-cell.gray {
-  background-color: #d3d3d3; /* Light gray for incorrect */
+  border-color: var(--neon-blue);
+  animation: pulse-caret 1s infinite alternate;
 }
 
 @keyframes pop {
@@ -635,3 +879,80 @@ button:hover:not(:disabled) {
   50% { transform: scale(1.1); }
   100% { transform: scale(1); }
 }
+
+/* --- New & Re-used Animations --- */
+@keyframes star-scroll {
+  from { background-position: 0 0, 0 0, 0 0, 0 0; }
+  to { background-position: 0 -1000px, 0 -800px, 0 -600px, 0 -1200px; }
+}
+@keyframes star-scroll-fast {
+  from { background-position: 0 0, 0 0, 0 0, 0 0; }
+  to { background-position: 0 -2000px, 0 -1600px, 0 -1200px, 0 -2400px; }
+}
+
+
+@keyframes scanline-jitter {
+  0% { opacity: 1; transform: translateY(0); }
+  48% { opacity: 1; transform: translateY(0); }
+  50% { opacity: 0.8; transform: translateY(1px); }
+  52% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce-arrow {
+  from { transform: translateY(0); }
+  to { transform: translateY(10px); }
+}
+
+@keyframes fade-in-text {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes border-glow-anim {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes pulse-caret {
+  from { border-color: var(--neon-blue); box-shadow: 0 0 5px var(--neon-blue); }
+  to { border-color: #fff; box-shadow: 0 0 10px var(--neon-blue), 0 0 5px #fff; }
+}
+
+
+/* --- Pulsing Glow Animations --- */
+@keyframes pulse-pink {
+  from {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink);
+  }
+  to {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px var(--neon-pink), 0 0 60px var(--neon-pink);
+  }
+}
+@keyframes pulse-blue {
+  from { text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-blue), 0 0 15px var(--neon-blue); }
+  to { text-shadow: 0 0 10px #fff, 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue); }
+}
+@keyframes pulse-green {
+  from { text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-green), 0 0 15px var(--neon-green); }
+  to { text-shadow: 0 0 10px #fff, 0 0 20px var(--neon-green), 0 0 30px var(--neon-green); }
+}
+@keyframes pulse-yellow {
+  from { text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-yellow), 0 0 15px var(--neon-yellow); }
+  to { text-shadow: 0 0 10px #fff, 0 0 20px var(--neon-yellow), 0 0 30px var(--neon-yellow); }
+}
+
+/* --- Pulsing Shadow Animations (for boxes/buttons) --- */
+@keyframes pulse-blue-shadow {
+  from { box-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue) inset; }
+  to { box-shadow: 0 0 30px var(--neon-blue), 0 0 40px var(--neon-blue) inset, 0 0 10px #fff inset; }
+}
+@keyframes pulse-green-shadow {
+  from { box-shadow: 0 0 10px var(--neon-green); border-color: var(--neon-green); }
+  to { box-shadow: 0 0 20px var(--neon-green), 0 0 5px #fff; border-color: #fff; }
+}
+@keyframes pulse-yellow-shadow {
+  from { box-shadow: 4px 4px 0px #000, 0 0 10px var(--neon-yellow); }
+  to { box-shadow: 4px 4px 0px #000, 0 0 20px var(--neon-yellow), 0 0 5px #fff; }
+}
+
